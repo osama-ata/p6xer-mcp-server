@@ -1,0 +1,7 @@
+[project]
+name = "p6xer-mcp-server"
+version = "0.1.0"
+description = "Model Context Protocol (MCP) Server for Primavera P6 XER files with comprehensive project analysis tools"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = ["mcp[cli]>=1.12.2", "pyp6xer>=1.16.0"]
