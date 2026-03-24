@@ -1,0 +1,32 @@
+{
+  "$schema": "https://raw.githubusercontent.com/github/github-mcp-server/refs/heads/main/mcp-manifest-schema.json",
+  "name": "p6xer-mcp-server",
+  "displayName": "P6XER — Primavera P6 Schedule Analyzer",
+  "description": "Parse, analyze, and quality-check Primavera P6 XER schedule files. Exposes 13 tools for critical path analysis, earned value, resource utilization, DCMA quality checks, and more.",
+  "version": "0.1.0",
+  "homepage": "https://github.com/osama-ata/p6xer-mcp-server",
+  "license": "MIT",
+  "runtime": "python",
+  "installation": {
+    "pypi": {
+      "package": "p6xer-mcp-server",
+      "command": "uvx",
+      "args": ["p6xer-mcp-server"]
+    }
+  },
+  "tools": [
+    { "name": "parse_xer_file",               "description": "Parse a P6 XER file and return project list, activity counts, resources, and calendars" },
+    { "name": "get_project_activities",        "description": "Get activities filtered by project, status, or task type" },
+    { "name": "get_critical_path",             "description": "Find critical path activities with zero or negative total float" },
+    { "name": "analyze_resource_utilization",  "description": "Planned/actual hours and costs per resource with over-allocation flags" },
+    { "name": "check_schedule_quality",        "description": "DCMA-style schedule quality check: missing logic, long durations, high float" },
+    { "name": "get_resources",                 "description": "List all resources, optionally filtered by type" },
+    { "name": "get_resource_assignments",      "description": "Resource-activity assignments with enriched names and costs" },
+    { "name": "get_wbs",                       "description": "Work Breakdown Structure hierarchy" },
+    { "name": "get_relationships",             "description": "Predecessor/successor relationships enriched with task codes" },
+    { "name": "get_calendars",                 "description": "Calendar definitions with hours-per-period data" },
+    { "name": "get_schedule_summary",          "description": "At-a-glance schedule stats, date range, and critical count" },
+    { "name": "get_earned_value",              "description": "EVM metrics: PV, EV, AC, CPI, SPI, EAC per project" },
+    { "name": "get_activity_detail",           "description": "Full detail for a single activity including predecessors, successors, and resources" }
+  ]
+}

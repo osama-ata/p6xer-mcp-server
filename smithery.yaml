@@ -1,0 +1,41 @@
+# Smithery MCP Server Configuration
+# https://smithery.ai/docs/config
+
+name: p6xer-mcp-server
+displayName: "P6XER — Primavera P6 Schedule Analyzer"
+description: |
+  Parse, analyze, and quality-check Primavera P6 XER schedule files.
+  Provides 13 tools for critical path analysis, earned value management,
+  resource utilization, DCMA schedule quality checks, WBS, calendars,
+  and more — all accessible to AI assistants via the Model Context Protocol.
+
+version: "0.1.0"
+license: MIT
+homepage: https://github.com/osama-ata/p6xer-mcp-server
+repository: https://github.com/osama-ata/p6xer-mcp-server
+
+runtime: python
+startCommand:
+  type: stdio
+  configSchema:
+    type: object
+    properties: {}
+    required: []
+  commandFunction: |-
+    (config) => ({
+      command: "uvx",
+      args: ["p6xer-mcp-server"],
+      env: {}
+    })
+
+tags:
+  - primavera
+  - p6
+  - xer
+  - project-management
+  - scheduling
+  - construction
+  - engineering
+  - earned-value
+  - critical-path
+  - dcma

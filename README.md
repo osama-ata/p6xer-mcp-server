@@ -1,92 +1,209 @@
 # P6XER MCP Server
 
-This is the Model Context Protocol (MCP) Server for P6 XER files, built on top of [PyP6XER](https://github.com/HassanEmam/PyP6Xer).
+[![PyPI version](https://badge.fury.io/py/p6xer-mcp-server.svg)](https://badge.fury.io/py/p6xer-mcp-server)
+[![Python 3.12+](https://img.shields.io/badge/python-3.12+-blue.svg)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![MCP](https://img.shields.io/badge/MCP-compatible-green.svg)](https://modelcontextprotocol.io)
 
-It exposes machine-readable MCP manifests for PyP6XER's modules for use by AI models such as:
+A full-featured [Model Context Protocol (MCP)](https://modelcontextprotocol.io) server for **Primavera P6 XER** files, built on [PyP6XER](https://github.com/HassanEmam/PyP6Xer).
 
-- XER Parser
-- XER Analyzer  
-- XER Converter
+Exposes **13 Tools**, **3 Resources**, and **2 Prompts** so any MCP-compatible AI client (Claude Desktop, Claude Code, Cursor, etc.) can interactively parse, query, and analyze `.xer` schedule files.
+
+---
 
 ## 🚀 Features
 
-### 🔧 Tools
+### 🔧 Tools (13)
 
-- **`parse_xer_file(file_path)`** - Parse Primavera P6 XER files and extract basic project information
-- **`get_project_activities(file_path, project_id?)`** - Get activities from XER files, optionally filtered by project
-- **`get_critical_path(file_path, project_id?)`** - Find critical path activities (zero or negative total float)
-- **`analyze_resource_utilization(file_path)`** - Analyze resource allocation, hours, and costs
-- **`check_schedule_quality(file_path, project_id?)`** - Perform schedule quality checks and identify issues
+| Tool | Description |
+|------|-------------|
+| `parse_xer_file` | Parse an XER file — project list, totals, status breakdowns |
+| `get_project_activities` | Activities with filters: project_id, project_short_name, status, task_type |
+| `get_critical_path` | Critical path activities (float ≤ 0), sorted by early start |
+| `analyze_resource_utilization` | Planned/actual hours & costs per resource; over-allocation flags |
+| `check_schedule_quality` | DCMA-style check: missing logic, long durations, high float, unresourced tasks |
+| `get_resources` | List resources, optionally filtered by type |
+| `get_resource_assignments` | Resource–activity assignments with enriched names and costs |
+| `get_wbs` | Work Breakdown Structure hierarchy |
+| `get_relationships` | Predecessor/successor relationships enriched with task codes |
+| `get_calendars` | Calendar definitions with hours-per-period data |
+| `get_schedule_summary` | At-a-glance stats: counts, date range, critical count |
+| `get_earned_value` | EVM: PV, EV, AC, CV, SV, CPI, SPI, EAC per project |
+| `get_activity_detail` | Full detail for one activity (preds + succs + resources) |
 
-### 📋 Resources
+### 📋 Resources (3)
 
-- **`xer-project://{file_path}/{project_id}`** - Get detailed information about a specific project
-- **`xer-activities://{file_path}`** - Get comprehensive activities summary with status breakdown
-- **`xer-resources://{file_path}`** - Get resources summary with type breakdown and assignment statistics
+| URI | Description |
+|-----|-------------|
+| `xer-project://{file_path}/{project_id}` | Detailed text summary of a specific project |
+| `xer-activities://{file_path}` | Activities summary with status breakdown and duration stats |
+| `xer-resources://{file_path}` | Resources summary with type breakdown and assignment stats |
 
-### 💬 Prompts
+### 💬 Prompts (2)
 
-- **`analyze_xer_project(file_path, analysis_type)`** - Generate analysis prompts for different types of project analysis
-  - Analysis types: `general`, `schedule`, `resources`, `progress`, `quality`
-- **`xer_reporting_prompt(file_path, report_type)`** - Generate prompts for creating professional project reports
-  - Report types: `executive`, `detailed`, `critical_path`, `resource`, `milestone`
+| Prompt | Types |
+|--------|-------|
+| `analyze_xer_project` | `general` · `schedule` · `resources` · `progress` · `quality` |
+| `xer_reporting_prompt` | `executive` · `detailed` · `critical_path` · `resource` · `milestone` |
 
-## � Installation
+---
+
+## � Install from Store
+
+### Via PyPI (uvx — no install needed)
+```bash
+uvx p6xer-mcp-server
+```
+
+### Via PyPI (pip)
+```bash
+pip install p6xer-mcp-server
+p6xer-mcp-server
+```
+
+### Via Smithery
+Search for `p6xer-mcp-server` on [smithery.ai](https://smithery.ai) and click Install.
+It will generate the correct Claude Desktop config automatically.
+
+### Via GitHub MCP Registry
+The server is listed in the GitHub MCP Registry. In Claude Code:
+```bash
+claude mcp add p6xer -- uvx p6xer-mcp-server
+```
+
+### Claude Desktop config (after PyPI install)
+```json
+{
+  "mcpServers": {
+    "p6xer": {
+      "command": "uvx",
+      "args": ["p6xer-mcp-server"]
+    }
+  }
+}
+```
+
+---
+
+## �📦 Installation
 
 ```bash
-# Clone the repository
-git clone https://github.com/osama-ata/p6xer-mcp-server.git
+# Clone the repo
+git clone https://github.com/your-org/p6xer-mcp-server.git
 cd p6xer-mcp-server
 
-# Install dependencies using uv (recommended)
+# Install with uv (recommended)
 uv sync
 
-# Or install using pip
-uv pip install mcp[cli] pyp6xer
+# Or with pip
+pip install "mcp[cli]>=1.12.2" pyp6xer
 ```
 
-## �🚀 Running the standalone MCP development tools
+---
+
+## 🏃 Running
+
+**Development / MCP Inspector:**
+```bash
+uv run --with mcp mcp run src/server.py
+```
+
+**Stdio (Claude Desktop / Claude Code):**
+```bash
+python src/server.py
+```
+
+---
+
+## 🔌 Claude Desktop
+
+Add to `claude_desktop_config.json`:
+
+```json
+{
+  "mcpServers": {
+    "p6xer": {
+      "command": "python",
+      "args": ["/absolute/path/to/p6xer-mcp-server/src/server.py"]
+    }
+  }
+}
+```
+
+Config file locations:
+- **macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
+- **Windows**: `%APPDATA%\Claude\claude_desktop_config.json`
+- **Linux**: `~/.config/Claude/claude_desktop_config.json`
+
+## 🔌 Claude Code (CLI)
 
 ```bash
-uv run mcp
+claude mcp add p6xer -- python /absolute/path/to/p6xer-mcp-server/src/server.py
 ```
 
-Open in your browser:
+---
 
-- MCP server status: <http://localhost:8000>
-- Development tools interface
+## 💬 Example Prompts
 
-## 🏃‍♂️ Quick Start
+Once connected:
 
-1. **Start the MCP server:**
+```
+Parse project.xer and give me an overview of all projects
 
-   ```bash
-   uv run --with mcp mcp run server.py
-   ```
+What are all the critical path activities, sorted by start date?
 
-2. **Connect from your AI assistant or MCP client**
+Run a DCMA schedule quality check on project.xer
 
-3. **Use the tools:** Parse XER files, analyze critical paths, check resource utilization, and generate comprehensive reports
+Calculate earned value metrics — what are the CPI and SPI?
 
-## 📊 What You Can Analyze
+Show all resource assignments for "John Smith"
 
-- **Project Overview**: Basic project information, activities count, resources, calendars
-- **Critical Path Analysis**: Activities with zero or negative float, schedule risks
-- **Resource Utilization**: Resource allocation, hours, costs, over-allocation detection
-- **Schedule Quality**: Missing predecessors/successors, long duration activities, logic issues
-- **Progress Tracking**: Activity status, completion percentages, schedule performance
+What are the predecessors and successors of activity A1000?
 
-## 🎯 Use Cases
+List all over-allocated labor resources
 
-- **Project Management**: Schedule analysis, resource optimization, progress tracking
-- **Quality Assurance**: Schedule quality checks, best practices validation
-- **Reporting**: Executive summaries, detailed analysis reports, milestone tracking
-- **Data Integration**: Extract P6 data for external systems and dashboards
+Generate an executive summary report for project.xer
+```
 
-## 📋 Example Workflow
+---
 
-1. **Parse XER File**: `parse_xer_file("project.xer")` → Get basic project info
-2. **Analyze Critical Path**: `get_critical_path("project.xer", "PROJECT_ID")` → Find critical activities  
-3. **Check Resources**: `analyze_resource_utilization("project.xer")` → Review resource allocation
-4. **Quality Check**: `check_schedule_quality("project.xer")` → Identify schedule issues
-5. **Generate Report**: Use prompts to create comprehensive analysis reports
+## 📊 Tool Reference
+
+### Filter parameters (most tools accept)
+- `project_id` – numeric P6 project ID (e.g. `"1234"`)
+- `project_short_name` – project short name string (e.g. `"PROJ1"`)
+
+### Status codes
+`TK_NotStart` · `TK_Active` · `TK_Complete`
+
+### Task types
+`TT_Task` · `TT_Mile` · `TT_FinMile` · `TT_WBS`
+
+### Resource types
+`RT_Labor` · `RT_Mat` · `RT_Equip`
+
+---
+
+## 🗂️ Project Structure
+
+```
+p6xer-mcp-server/
+├── src/
+│   └── server.py       # All tools, resources, and prompts
+├── pyproject.toml
+└── README.md
+```
+
+---
+
+## 📋 Requirements
+
+- Python ≥ 3.12
+- `mcp[cli] >= 1.12.2`
+- `pyp6xer >= 1.16.0`
+
+---
+
+## 📄 License
+
+MIT
