@@ -32,7 +32,8 @@ jobs:
         run: python -m build
 
       - name: Store distribution packages
-        uses: actions/upload-artifact@v5
+        # Bumping upload-artifact to v8 to match the download-artifact version
+        uses: actions/upload-artifact@v8
         with:
           name: python-package-distributions
           path: dist/
@@ -50,7 +51,7 @@ jobs:
       id-token: write
     steps:
       - name: Download distribution packages
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v8  # Updated to v8 here
         with:
           name: python-package-distributions
           path: dist/
@@ -73,7 +74,7 @@ jobs:
       id-token: write
     steps:
       - name: Download distribution packages
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v8  # Updated to v8 here
         with:
           name: python-package-distributions
           path: dist/
