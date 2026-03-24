@@ -89,14 +89,14 @@ claude mcp add p6xer -- uvx p6xer-mcp-server
 
 ```bash
 # Clone the repo
-git clone https://github.com/your-org/p6xer-mcp-server.git
+git clone https://github.com/osama-ata/p6xer-mcp-server.git
 cd p6xer-mcp-server
 
 # Install with uv (recommended)
 uv sync
 
 # Or with pip
-pip install "mcp[cli]>=1.12.2" pyp6xer
+pip install "mcp[cli]>=1.6.0,<2.0.0" pyp6xer
 ```
 
 ---
@@ -105,12 +105,12 @@ pip install "mcp[cli]>=1.12.2" pyp6xer
 
 **Development / MCP Inspector:**
 ```bash
-uv run --with mcp mcp run src/server.py
+uv run mcp dev src/p6xer_mcp_server/server.py
 ```
 
 **Stdio (Claude Desktop / Claude Code):**
 ```bash
-python src/server.py
+uv run p6xer-mcp-server
 ```
 
 ---
@@ -123,8 +123,8 @@ Add to `claude_desktop_config.json`:
 {
   "mcpServers": {
     "p6xer": {
-      "command": "python",
-      "args": ["/absolute/path/to/p6xer-mcp-server/src/server.py"]
+      "command": "uvx",
+      "args": ["p6xer-mcp-server"]
     }
   }
 }
@@ -138,7 +138,7 @@ Config file locations:
 ## 🔌 Claude Code (CLI)
 
 ```bash
-claude mcp add p6xer -- python /absolute/path/to/p6xer-mcp-server/src/server.py
+claude mcp add p6xer -- uvx p6xer-mcp-server
 ```
 
 ---
@@ -189,7 +189,12 @@ Generate an executive summary report for project.xer
 ```
 p6xer-mcp-server/
 ├── src/
-│   └── server.py       # All tools, resources, and prompts
+│   └── p6xer_mcp_server/
+│       ├── __init__.py
+│       └── server.py       # All tools, resources, and prompts
+├── manifest.json           # MCPB bundle manifest
+├── mcp.json                # MCP registry metadata
+├── smithery.yaml           # Smithery registry configuration
 ├── pyproject.toml
 └── README.md
 ```
@@ -198,8 +203,8 @@ p6xer-mcp-server/
 
 ## 📋 Requirements
 
-- Python ≥ 3.12
-- `mcp[cli] >= 1.12.2`
+- Python ≥ 3.10
+- `mcp[cli] >= 1.6.0, < 2.0.0`
 - `pyp6xer >= 1.16.0`
 
 ---

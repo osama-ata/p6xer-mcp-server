@@ -1,5 +1,4 @@
 {
-  "$schema": "https://raw.githubusercontent.com/github/github-mcp-server/refs/heads/main/mcp-manifest-schema.json",
   "name": "p6xer-mcp-server",
   "displayName": "P6XER — Primavera P6 Schedule Analyzer",
   "description": "Parse, analyze, and quality-check Primavera P6 XER schedule files. Exposes 13 tools for critical path analysis, earned value, resource utilization, DCMA quality checks, and more.",

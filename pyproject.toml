@@ -3,16 +3,19 @@ name = "p6xer-mcp-server"
 version = "0.1.0"
 description = "MCP server for Primavera P6 XER schedule files — parse, analyze, and quality-check with AI"
 readme = "README.md"
-requires-python = ">=3.12"
+requires-python = ">=3.10"
 license = { text = "MIT" }
 authors = [{ name = "Your Name", email = "your@email.com" }]
 keywords = ["mcp", "primavera", "p6", "xer", "project-management", "scheduling", "construction"]
 classifiers = [
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
   "License :: OSI Approved :: MIT License",
   "Topic :: Software Development",
 ]
-dependencies = ["mcp[cli]>=1.12.2", "pyp6xer>=1.16.0"]
+dependencies = ["mcp[cli]>=1.6.0,<2.0.0", "pyp6xer>=1.16.0"]
 
 [project.urls]
 Homepage = "https://github.com/osama-ata/p6xer-mcp-server"
@@ -20,7 +23,7 @@ Repository = "https://github.com/osama-ata/p6xer-mcp-server"
 Documentation = "https://github.com/osama-ata/p6xer-mcp-server#readme"
 
 [project.scripts]
-p6xer-mcp = "p6xer_mcp_server.server:run"
+p6xer-mcp-server = "p6xer_mcp_server.server:run"
 
 [build-system]
 requires = ["hatchling"]

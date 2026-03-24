@@ -7,10 +7,10 @@ A full-featured MCP server for PyP6XER, exposing:
   • 2 Prompts   – guided analysis and reporting prompt generators
 
 Run (development / inspector):
-    uv run --with mcp mcp run server.py
+    uv run mcp dev src/p6xer_mcp_server/server.py
 
 Run (stdio, for Claude Desktop / Claude Code):
-    python server.py
+    uv run p6xer-mcp-server
 """
 
 from __future__ import annotations
@@ -34,7 +34,15 @@ except ImportError:
     print("Error: PyP6XER not installed. Run: pip install PyP6XER", file=sys.stderr)
     sys.exit(1)
 
-mcp = FastMCP("p6xer-mcp-server")
+mcp = FastMCP(
+    "p6xer-mcp-server",
+    title="P6XER — Primavera P6 Schedule Analyzer",
+    instructions=(
+        "Use this server to parse, query, and analyze Primavera P6 XER schedule files. "
+        "Start with parse_xer_file to load a file, then use the other tools to query "
+        "activities, resources, critical path, earned value, and schedule quality."
+    ),
+)
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # Internal helpers
