@@ -212,3 +212,54 @@ p6xer-mcp-server/
 ## 📄 License
 
 MIT
+
+---
+
+## 🚢 Publishing to PyPI (GitHub Actions + Trusted Publishing)
+
+This repository includes a release workflow at `.github/workflows/publish-to-pypi.yml` based on the PyPA guide and `pypa/gh-action-pypi-publish`.
+
+### 1) Configure Trusted Publishers
+
+Create trusted publishers for this exact workflow file:
+
+- PyPI: https://pypi.org/manage/account/publishing/
+- TestPyPI: https://test.pypi.org/manage/account/publishing/
+
+Use these values:
+
+- Owner: `osama-ata`
+- Repository: `p6xer-mcp-server`
+- Workflow file: `publish-to-pypi.yml`
+- Environment: `pypi` (for PyPI), `testpypi` (for TestPyPI)
+- Project name: `p6xer-mcp-server`
+
+### 2) Create GitHub Environments
+
+In repository settings, create two environments:
+
+- `pypi`
+- `testpypi`
+
+Recommended security setup:
+
+- Require manual approval for `pypi`
+- No approval required for `testpypi`
+
+### 3) Build locally (optional sanity check)
+
+```bash
+python -m pip install --upgrade build twine
+python -m build
+python -m twine check dist/*
+```
+
+### 4) Release flow
+
+- Push to `main`: publishes to TestPyPI
+- Push tag `v*` (for example `v0.1.1`): publishes to PyPI
+
+```bash
+git tag v0.1.1
+git push origin v0.1.1
+```
