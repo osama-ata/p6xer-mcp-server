@@ -60,6 +60,8 @@ jobs:
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           repository-url: https://test.pypi.org/legacy/
+          skip-existing: true  # <--- Skips the upload if version already exists
+          verbose: true        # <--- Prints detailed error messages if something else fails
 
   publish-to-pypi:
     name: Publish to PyPI
@@ -81,3 +83,6 @@ jobs:
 
       - name: Publish distribution to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          skip-existing: true  # <--- Skips the upload if version already exists
+          verbose: true        # <--- Prints detailed error messages if something else fails
