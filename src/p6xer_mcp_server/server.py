@@ -36,8 +36,8 @@ except ImportError:
 
 mcp = FastMCP(
     "p6xer-mcp-server",
-    title="P6XER — Primavera P6 Schedule Analyzer",
     instructions=(
+        "P6XER — Primavera P6 Schedule Analyzer\n"
         "Use this server to parse, query, and analyze Primavera P6 XER schedule files. "
         "Start with parse_xer_file to load a file, then use the other tools to query "
         "activities, resources, critical path, earned value, and schedule quality."
