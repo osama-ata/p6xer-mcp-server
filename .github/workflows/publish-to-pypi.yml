@@ -32,8 +32,8 @@ jobs:
         run: python -m build
 
       - name: Store distribution packages
-        # Bumping upload-artifact to v8 to match the download-artifact version
-        uses: actions/upload-artifact@v8
+        # Bumping upload-artifact to v7 to match the download-artifact version
+        uses: actions/upload-artifact@v7.0.0
         with:
           name: python-package-distributions
           path: dist/
