@@ -1,0 +1,54 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.osama-ata/p6xer-mcp-server",
+  "title": "p6xer MCP Server",
+  "description": "An MCP server for Primavera P6 XER files.",
+  "websiteUrl": "https://github.com/osama-ata/p6xer-mcp-server",
+  "repository": {
+    "url": "https://github.com/osama-ata/p6xer-mcp-server",
+    "source": "github"
+  },
+  "version": "0.1.2",
+  "packages": [
+    {
+      "registryType": "pypi",
+      "registryBaseUrl": "https://pypi.org",
+      "identifier": "p6xer-mcp-server",
+      "version": "0.1.2",
+      "runtimeHint": "uvx",
+      "runtimeArguments": [
+        {
+          "type": "positional",
+          "value": "p6xer-mcp-server",
+          "valueHint": "command"
+        }
+      ],
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "P6XER_API_KEY",
+          "description": "API key used to authenticate with p6xer service.",
+          "isRequired": false,
+          "format": "string",
+          "isSecret": true
+        },
+        {
+          "name": "P6XER_ENDPOINT",
+          "description": "Optional p6xer endpoint URL (default uses local p6xer daemon).",
+          "isRequired": false,
+          "format": "string",
+          "isSecret": false
+        },
+        {
+          "name": "P6XER_LOG_LEVEL",
+          "description": "Optional log verbosity level (e.g., DEBUG, INFO, WARN, ERROR).",
+          "isRequired": false,
+          "format": "string",
+          "isSecret": false
+        }
+      ]
+    }
+  ]
+}

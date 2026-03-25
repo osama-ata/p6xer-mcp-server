@@ -173,3 +173,6 @@ cython_debug/
 # PyPI configuration file
 .pypirc
 .claude/
+.mcpregistry_github_token
+.gitignore
+.mcpregistry_registry_token

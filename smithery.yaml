@@ -9,7 +9,7 @@ description: |
   resource utilization, DCMA schedule quality checks, WBS, calendars,
   and more — all accessible to AI assistants via the Model Context Protocol.
 
-version: "0.1.0"
+version: "0.1.2"
 license: MIT
 homepage: https://github.com/osama-ata/p6xer-mcp-server
 repository: https://github.com/osama-ata/p6xer-mcp-server

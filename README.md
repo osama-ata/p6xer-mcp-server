@@ -1,5 +1,7 @@
 # P6XER MCP Server
 
+mcp-name: io.github.osama-ata/p6xer-mcp-server
+
 [![PyPI version](https://badge.fury.io/py/p6xer-mcp-server.svg)](https://badge.fury.io/py/p6xer-mcp-server)
 [![Python 3.12+](https://img.shields.io/badge/python-3.12+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
